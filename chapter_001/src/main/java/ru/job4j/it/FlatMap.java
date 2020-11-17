@@ -8,7 +8,7 @@ public class FlatMap<T> implements Iterator<T> {
 
     public FlatMap(Iterator<Iterator<T>> data) {
         this.data = data;
-        cursor = this.data.hasNext() ? this.data.next() : null;
+        cursor = Collections.emptyIterator();
     }
 
     @Override
@@ -18,6 +18,7 @@ public class FlatMap<T> implements Iterator<T> {
                 Iterator<T> temp = data.next();
                 if (temp.hasNext()) {
                     cursor = temp;
+                    break;
                 }
             }
         }
