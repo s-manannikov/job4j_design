@@ -30,6 +30,7 @@ public class SimpleArray<T> implements Iterable<T> {
     public void remove(int index) {
         checkIndex(index);
         System.arraycopy(data, index + 1, data, index, count - index - 1);
+        data[data.length - 1] = null;
         count--;
     }
 
@@ -45,7 +46,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return point < data.length;
+                return point < count;
             }
 
             @Override

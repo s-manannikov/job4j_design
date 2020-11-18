@@ -3,11 +3,15 @@ package ru.job4j.generics;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.is;
 
 public class SimpleArrayTest {
     private SimpleArray<? super Object> test = new SimpleArray(new Object[3]);
+    Iterator<? super Object> it = test.iterator();
 
     @Before
     public void setUp() {
@@ -47,6 +51,30 @@ public class SimpleArrayTest {
         try {
             test.get(3);
         } catch (IndexOutOfBoundsException ex) {
+        }
+    }
+
+    @Test
+    public void whenHasNext() {
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.hasNext(), is(true));
+    }
+
+    @Test
+    public void whenNext() {
+        assertThat(it.next(), is(1));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(3));
+    }
+
+    @Test
+    public void whenNoSuchElement() throws NoSuchElementException {
+        try {
+            assertThat(it.next(), is(1));
+            assertThat(it.next(), is(2));
+            assertThat(it.next(), is(3));
+            assertThat(it.next(), is(4));
+        } catch (NoSuchElementException ex) {
         }
     }
 }
