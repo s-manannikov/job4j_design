@@ -15,25 +15,28 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        if (indexOf(id) == -1) {
+        int i = indexOf(id);
+        if (i == -1) {
             return false;
         }
-        mem.set(indexOf(id), model);
+        mem.set(i, model);
         return true;
     }
 
     @Override
     public boolean delete(String id) {
-        if (indexOf(id) == -1) {
+        int i = indexOf(id);
+        if (i == -1) {
             return false;
         }
-        mem.remove(indexOf(id));
+        mem.remove(i);
         return true;
     }
 
     @Override
     public T findById(String id) {
-        return mem.get(indexOf(id));
+        int i = indexOf(id);
+        return i != -1 ? mem.get(i) : null;
     }
 
     private int indexOf(String id) {
