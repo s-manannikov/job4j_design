@@ -29,7 +29,7 @@ public class SimpleLinked<E> implements Iterable<E> {
             current = current.next;
             i++;
         }
-        return (E) current;
+        return current.item;
     }
 
     public E deleteLast() {
