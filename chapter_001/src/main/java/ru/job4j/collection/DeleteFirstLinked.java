@@ -20,13 +20,11 @@ public class DeleteFirstLinked<T> implements Iterable<T> {
     }
 
     public T deleteFirst() {
-        T rsl = null;
-        if (head != null) {
-            rsl = (T) head;
-            head = head.next;
-        } else {
+        if (head == null) {
             throw new NoSuchElementException();
         }
+        T rsl = (T) head;
+        head = head.next;
         return rsl;
     }
 
