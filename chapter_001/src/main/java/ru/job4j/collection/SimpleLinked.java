@@ -23,13 +23,26 @@ public class SimpleLinked<E> implements Iterable<E> {
 
     public E get(int index) {
         Objects.checkIndex(index, size);
-        E element = null;
-        if (index == 0) {
-            element = first.item;
-        } else if (index == size - 1) {
-            element = last.item;
+        Node<E> current = first;
+        int i = 0;
+        while (i < index) {
+            current = current.next;
+            i++;
         }
-        return element;
+        return (E) current;
+    }
+
+    public E deleteLast() {
+        E rsl = last.item;
+        if (first.next == null) {
+            first = null;
+        } else {
+            last.next = null;
+        }
+        last = last.prev;
+        size--;
+        modCount++;
+        return rsl;
     }
 
     @Override
