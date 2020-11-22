@@ -24,17 +24,26 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return children == user.children &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(birthday, user.birthday);
+        return children == user.children
+                && Objects.equals(name, user.name)
+                && Objects.equals(birthday, user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 
     public static void main(String[] args) {
-        User user1 = new User("Name", 2, new GregorianCalendar(1900, 0, 1));
-        User user2 = new User("Name", 2, new GregorianCalendar(1900, 0, 1));
+        User user1 = new User("Name", 2, new GregorianCalendar(1900, Calendar.JANUARY, 1));
+        User user2 = new User("Name", 2, new GregorianCalendar(1900, Calendar.JANUARY, 1));
         Map<User, Object> map = new HashMap<>();
         map.put(user1, user1);
         map.put(user2, user2);
