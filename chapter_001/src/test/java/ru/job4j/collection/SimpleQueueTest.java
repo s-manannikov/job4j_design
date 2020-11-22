@@ -27,7 +27,7 @@ public class SimpleQueueTest {
     }
 
     @Test
-    public void when2PushPollPushPoll() {
+    public void whenPushPollPushPoll() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
         queue.push(1);
         queue.poll();
@@ -42,6 +42,7 @@ public class SimpleQueueTest {
         queue.poll();
     }
 
+    @Test
     public void whenPushPushPollAndPush() {
         SimpleQueue<Integer> queue = new SimpleQueue<>();
         queue.push(1);

@@ -18,6 +18,10 @@ public class SimpleQueue<T> {
             out.push(rsl);
             i++;
         }
+        while (i > 0) {
+            in.push(out.pop());
+            i--;
+        }
         count--;
         return rsl;
     }
