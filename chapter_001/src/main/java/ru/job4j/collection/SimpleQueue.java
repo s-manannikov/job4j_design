@@ -9,18 +9,19 @@ public class SimpleQueue<T> {
 
     public T poll() {
         T rsl = null;
-        int i = 0;
+        int i = 0, j = 1;
         if (count == 0) {
             throw new NoSuchElementException();
         }
-        while (i < count) {
-            rsl = in.pop();
-            out.push(rsl);
-            i++;
-        }
-        while (i > 0) {
+        while (i <= count && j > 0) {
+            if (i == count) {
             in.push(out.pop());
-            i--;
+            j--;
+            } else {
+                rsl = in.pop();
+                out.push(rsl);
+                j = ++i;
+            }
         }
         count--;
         return rsl;
