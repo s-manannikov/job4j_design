@@ -11,10 +11,6 @@ public class SimpleSet<E> implements Iterable<E> {
         }
     }
 
-    public E get(int index) {
-        return data.get(index);
-    }
-
     @Override
     public Iterator<E> iterator() {
         return data.iterator();
