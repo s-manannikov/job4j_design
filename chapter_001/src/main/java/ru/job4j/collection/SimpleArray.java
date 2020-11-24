@@ -23,7 +23,7 @@ public class SimpleArray<T> implements Iterable<T> {
     public boolean contains(T model) {
         boolean rsl = false;
         for (Object i : container) {
-            if (i != null && i.equals(model)) {
+            if (Objects.equals(i, model)) {
                 rsl = true;
                 break;
             }
