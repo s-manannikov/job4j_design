@@ -45,6 +45,10 @@ public class SimpleLinked<E> implements Iterable<E> {
         return rsl;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator() {

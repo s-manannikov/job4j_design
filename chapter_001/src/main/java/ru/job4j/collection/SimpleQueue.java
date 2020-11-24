@@ -8,23 +8,15 @@ public class SimpleQueue<T> {
     private int count = 0;
 
     public T poll() {
-        T rsl = null;
-        int i = 0, j = 1;
         if (count == 0) {
             throw new NoSuchElementException();
         }
-        while (i <= count && j > 0) {
-            if (i == count) {
-            in.push(out.pop());
-            j--;
-            } else {
-                rsl = in.pop();
-                out.push(rsl);
-                j = ++i;
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
+                out.push(in.pop());
             }
         }
-        count--;
-        return rsl;
+        return out.pop();
     }
 
     public void push(T value) {
