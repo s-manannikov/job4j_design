@@ -27,6 +27,13 @@ public class SimpleMapTest {
     }
 
     @Test
+    public void whenInsertDuplicateKeys() {
+        assertThat(test.insert("key2", "value2"), is(false));
+        assertThat(test.insert("key2", "value222"), is(false));
+        assertThat(test.get("key2"), is("value222"));
+    }
+
+    @Test
     public void whenInsertDuplicateKeyAndUpdateValue() {
         assertThat(test.insert("key2", "value22"), is(false));
         assertThat(test.get("key2"), is("value22"));

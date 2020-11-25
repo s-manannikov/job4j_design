@@ -15,12 +15,20 @@ public class SimpleMap<K, V> implements Iterable<K> {
         if ((double) size / data.length >= 0.75) {
             data = Arrays.copyOf(data, data.length * 2);
         }
+        Entry entry = new Entry(key, value);
         if (index == -1) {
-            data[size] = new Entry(key, value);
+            data[size] = entry;
             rsl = true;
             size++;
         } else {
-            data[index].setValue(value);
+            if (entry.hashCode() == data[index].hashCode()) {
+                if (entry.getKey().equals(data[index].getKey())
+                        && entry.getValue().equals(data[index].getValue())) {
+                    data[index] = entry;
+                }
+            } else {
+                data[index].setValue(value);
+            }
         }
         return rsl;
     }
