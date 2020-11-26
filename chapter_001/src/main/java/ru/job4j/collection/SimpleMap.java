@@ -3,34 +3,21 @@ package ru.job4j.collection;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.stream.IntStream;
 
 public class SimpleMap<K, V> implements Iterable<K> {
     private Entry[] data = new Entry[16];
     private int size = 0;
 
     public boolean insert(K key, V value) {
-        boolean rsl = false;
         int index = indexOf(key);
         if ((double) size / data.length >= 0.75) {
             data = Arrays.copyOf(data, data.length * 2);
         }
-        Entry entry = new Entry(key, value);
-        if (index == -1) {
-            data[size] = entry;
-            rsl = true;
+        if (data[index] == null) {
+            data[index] = new Entry(key, value);
             size++;
-        } else {
-            if (entry.hashCode() == data[index].hashCode()) {
-                if (entry.getKey().equals(data[index].getKey())
-                        && entry.getValue().equals(data[index].getValue())) {
-                    data[index] = entry;
-                }
-            } else {
-                data[index].setValue(value);
-            }
         }
-        return rsl;
+        return true;
     }
 
     public V get(K key) {
@@ -38,21 +25,19 @@ public class SimpleMap<K, V> implements Iterable<K> {
     }
 
     public boolean delete(K key) {
-        boolean rsl = false;
         int index = indexOf(key);
-        if (index != -1) {
-            System.arraycopy(data, index + 1, data, index, size - index - 1);
-            data[data.length - 1] = null;
-            rsl = true;
+        if (data[index] == null) {
+            return false;
         }
-        return rsl;
+        data[index] = null;
+        size--;
+        return true;
     }
 
     public int indexOf(K key) {
-        return IntStream.range(0, size)
-                .filter(i -> data[i].getKey().equals(key))
-                .findFirst()
-                .orElse(-1);
+        int hashCode = key.hashCode();
+        int hash = (hashCode == 0) ? hashCode : hashCode ^ (hashCode >>> 16);
+        return hash & (data.length - 1);
 }
 
     @Override
@@ -62,7 +47,13 @@ public class SimpleMap<K, V> implements Iterable<K> {
 
             @Override
             public boolean hasNext() {
-                return point < size;
+                for (int i = point; i < data.length; i++) {
+                    if (data[i] != null) {
+                        point = i;
+                        return true;
+                    }
+                }
+                return false;
             }
 
             @Override
