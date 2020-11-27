@@ -7,13 +7,15 @@ public class Analize {
 
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info(0, 0, 0);
-        Map<Integer, String> prev = previous.stream().collect(Collectors.toMap(i -> i.id, i -> i.name));
         Map<Integer, String> curr = current.stream().collect(Collectors.toMap(i -> i.id, i -> i.name));
-        prev.keySet().retainAll(curr.keySet());
-        info.deleted = previous.size() - prev.size();
-        curr.keySet().retainAll(prev.keySet());
-        info.added = current.size() - curr.size();
-        info.changed = (int) curr.values().stream().filter(i -> !prev.containsValue(i)).count();
+        for (User i : previous) {
+            if (!curr.containsKey(i.id)) {
+                info.deleted++;
+            } else if (!curr.containsValue(i.name)) {
+                info.changed++;
+            }
+        }
+        info.added = current.size() - previous.size() + info.deleted;
         return info;
     }
 
