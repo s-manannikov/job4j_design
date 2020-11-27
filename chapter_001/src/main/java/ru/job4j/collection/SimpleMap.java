@@ -3,15 +3,17 @@ package ru.job4j.collection;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleMap<K, V> implements Iterable<K> {
     private Entry[] data = new Entry[16];
     private int size = 0;
+    final double loadFactor = 0.75;
 
     public boolean insert(K key, V value) {
         int index = indexOf(key);
-        if ((double) size / data.length >= 0.75) {
-            data = Arrays.copyOf(data, data.length * 2);
+        if ((double) size / data.length >= loadFactor) {
+            resize();
         }
         if (data[index] == null) {
             data[index] = new Entry(key, value);
@@ -20,13 +22,24 @@ public class SimpleMap<K, V> implements Iterable<K> {
         return true;
     }
 
+    private void resize() {
+        Entry<K, V>[] oldData = data;
+        size = 0;
+        data = new Entry[oldData.length * 2];
+        Arrays.stream(oldData).filter(i -> Objects.nonNull(i)).forEach(entry -> insert(entry.getKey(), entry.getValue()));
+    }
+
     public V get(K key) {
+        int index = indexOf(key);
+        if (data[index] == null || !data[index].getKey().equals(key)) {
+            return null;
+        }
         return (V) data[indexOf(key)].getValue();
     }
 
     public boolean delete(K key) {
         int index = indexOf(key);
-        if (data[index] == null) {
+        if (data[index] == null || !data[index].getKey().equals(key)) {
             return false;
         }
         data[index] = null;
@@ -38,7 +51,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
         int hashCode = key.hashCode();
         int hash = (hashCode == 0) ? hashCode : hashCode ^ (hashCode >>> 16);
         return hash & (data.length - 1);
-}
+    }
 
     @Override
     public Iterator<K> iterator() {
