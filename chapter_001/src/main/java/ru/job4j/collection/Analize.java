@@ -11,8 +11,8 @@ public class Analize {
         for (User i : previous) {
             if (!curr.containsKey(i.id)) {
                 info.deleted++;
-            } else if (!curr.containsValue(i.name)) {
-                info.changed++;
+            } else if (!curr.get(i.id).equals(i.name)) {
+                    info.changed++;
             }
         }
         info.added = current.size() - previous.size() + info.deleted;
