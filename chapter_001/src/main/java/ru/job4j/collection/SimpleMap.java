@@ -8,11 +8,11 @@ import java.util.Objects;
 public class SimpleMap<K, V> implements Iterable<K> {
     private Entry[] data = new Entry[16];
     private int size = 0;
-    final double loadFactor = 0.75;
+    private static final double LOAD_FACTOR = 0.75;
 
     public boolean insert(K key, V value) {
         int index = indexOf(key);
-        if ((double) size / data.length >= loadFactor) {
+        if ((double) size / data.length >= LOAD_FACTOR) {
             resize();
         }
         if (data[index] == null) {
@@ -26,12 +26,14 @@ public class SimpleMap<K, V> implements Iterable<K> {
         Entry<K, V>[] oldData = data;
         size = 0;
         data = new Entry[oldData.length * 2];
-        Arrays.stream(oldData).filter(i -> Objects.nonNull(i)).forEach(entry -> insert(entry.getKey(), entry.getValue()));
+        Arrays.stream(oldData)
+                .filter(i -> Objects.nonNull(i))
+                .forEach(entry -> insert(entry.getKey(), entry.getValue()));
     }
 
     public V get(K key) {
         int index = indexOf(key);
-        if (data[index] == null || !data[index].getKey().equals(key)) {
+        if (data[index] == null || !Objects.equals(data[index].getKey(), (key))) {
             return null;
         }
         return (V) data[indexOf(key)].getValue();
@@ -39,7 +41,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
 
     public boolean delete(K key) {
         int index = indexOf(key);
-        if (data[index] == null || !data[index].getKey().equals(key)) {
+        if (data[index] == null || !Objects.equals(data[index].getKey(), (key))) {
             return false;
         }
         data[index] = null;
