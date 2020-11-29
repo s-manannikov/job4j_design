@@ -1,27 +1,20 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Analyze {
-    public void unavailable(String source, String target) {
-        List<String> list = new ArrayList<>();
-        try (BufferedReader read = new BufferedReader(new FileReader(source))) {
-            list = read.lines().collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try (PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
+    public void unavailable(String source, String target) throws IOException {
+        try (BufferedReader in = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new BufferedOutputStream(new FileOutputStream(target)))) {
             String start = "", finish = "", prev = "000";
-            for (String i : list) {
-                if (check(i) && !check(prev)) {
-                    start = i;
-                    prev = i;
+            String line = in.readLine();
+            while (line != null) {
+                if (check(line) && !check(prev)) {
+                    start = line;
+                    prev = line;
                 }
-                if (!check(i) && check(prev)) {
-                    finish = i;
+                if (!check(line) && check(prev)) {
+                    finish = line;
                 }
                 if (!start.isEmpty() && !finish.isEmpty()) {
                     out.write(start.substring(4, 12) + ";" + finish.substring(4, 12) + System.lineSeparator());
@@ -29,9 +22,8 @@ public class Analyze {
                     finish = "";
                     prev = "000";
                 }
+                line = in.readLine();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

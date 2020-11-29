@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 public class AnalyzeTest {
 
     @Test
-    public void whenUnavailable() {
+    public void whenUnavailable() throws IOException {
         String path1 = "./files/server_log_in.txt";
         String path2 = "./files/server_log_out.txt";
         Analyze analyze = new Analyze();
