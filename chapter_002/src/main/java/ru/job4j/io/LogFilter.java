@@ -21,7 +21,7 @@ public class LogFilter {
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            log.stream().map(i -> i + System.lineSeparator()).forEach(out::write);
+            log.stream().forEach(s -> out.println(s));
         } catch (Exception e) {
             e.printStackTrace();
         }
