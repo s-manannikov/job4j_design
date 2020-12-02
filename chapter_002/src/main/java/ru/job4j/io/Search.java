@@ -9,5 +9,6 @@ public class Search {
     public static void main(String[] args) throws IOException {
         Path start = Paths.get(".");
         Files.walkFileTree(start, new SearchFiles(p -> p.toString().endsWith("java")));
+        SearchFiles.list.forEach(System.out::println);
     }
 }
