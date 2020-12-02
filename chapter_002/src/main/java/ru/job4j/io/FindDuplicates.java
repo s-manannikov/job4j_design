@@ -8,20 +8,10 @@ import java.util.*;
 
 public class FindDuplicates {
 
-    public static Map<Data, Integer> findDuplicates(List<Data> list) {
-        Map<Data, Integer> rsl = new HashMap<>();
-        for (Data i : list) {
-            Integer value = rsl.get(i);
-            rsl.put(i, value == null ? 0 : ++value);
-        }
-        return rsl;
-    }
-
     public static void main(String[] args) throws IOException {
         Path start = Paths.get("/Users/test");
         Files.walkFileTree(start, new SearchDuplicates());
-        Map<FindDuplicates.Data, Integer> rsl = findDuplicates(SearchDuplicates.getList());
-        rsl.forEach((key, value) -> System.out.println(key + " Duplicates: " + value));
+        SearchDuplicates.getList().forEach((key, value) -> System.out.println(key + " Duplicates: " + value));
     }
 
     public static class Data {

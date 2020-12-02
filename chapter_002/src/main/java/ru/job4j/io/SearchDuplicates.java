@@ -8,9 +8,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class SearchDuplicates implements FileVisitor<Path> {
-    private static List<FindDuplicates.Data> list = new ArrayList<>();
+    private static Map<FindDuplicates.Data, Integer> list = new HashMap<>();
 
-    public static List<FindDuplicates.Data> getList() {
+    public static Map<FindDuplicates.Data, Integer> getList() {
         return list;
     }
 
@@ -21,7 +21,9 @@ public class SearchDuplicates implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        list.add(new FindDuplicates.Data(file.getFileName().toString(), attrs.size()));
+        FindDuplicates.Data data = new FindDuplicates.Data(file.getFileName().toString(), attrs.size());
+        Integer value = list.get(data);
+        list.put(data, value == null ? 0 : ++value);
         return FileVisitResult.CONTINUE;
     }
 
