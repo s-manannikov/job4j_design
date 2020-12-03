@@ -11,7 +11,8 @@ public class Search {
             throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
         }
         Path start = Paths.get(args[0]);
-        Files.walkFileTree(start, new SearchFiles(p -> p.toString().endsWith(args[1])));
-        SearchFiles.list.forEach(System.out::println);
+        SearchFiles searchFiles = new SearchFiles(p -> p.toString().endsWith(args[1]));
+        Files.walkFileTree(start, searchFiles);
+        searchFiles.getList().forEach(System.out::println);
     }
 }
