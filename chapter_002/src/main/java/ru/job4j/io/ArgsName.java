@@ -15,7 +15,14 @@ public class ArgsName {
         if (args.length == 0) {
             throw new IllegalArgumentException();
         }
-        Arrays.stream(args).map(i -> i.substring(1).split("=")).forEach(i -> values.put(i[0], i[1]));
+        for (String i : args) {
+            if (!i.startsWith("-") && !i.contains("=")) {
+                throw new IllegalArgumentException();
+            } else {
+                String[] split = i.substring(1).split("=");
+                values.put(split[0], split[1]);
+            }
+        }
     }
 
     public static ArgsName of(String[] args) {
