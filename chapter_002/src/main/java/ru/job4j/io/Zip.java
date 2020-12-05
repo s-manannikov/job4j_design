@@ -33,13 +33,19 @@ public class Zip {
         }
     }
 
+    public List<Path> search(String exclude, Path source) throws IOException {
+        SearchFiles searchFiles = new SearchFiles(p -> !p.toString().endsWith(exclude));
+        Files.walkFileTree(source, searchFiles);
+        return searchFiles.getList();
+    }
+
     public static void main(String[] args) throws IOException {
         ArgZip argZip = new ArgZip(args);
         if (argZip.valid()) {
-            SearchFiles searchFiles = new SearchFiles(p -> !p.toString().endsWith(argZip.exclude()));
-            Files.walkFileTree(Path.of(argZip.directory()), searchFiles);
-            Path path = Path.of(argZip.output());
-            new Zip().packFiles(searchFiles.getList(), path);
+            new Zip().packFiles(
+                    new Zip().search(argZip.exclude(), Path.of(argZip.directory())),
+                    Path.of(argZip.output())
+            );
         }
         new Zip().packSingleFile(
                 Path.of("./chapter_002/pom.xml"),
