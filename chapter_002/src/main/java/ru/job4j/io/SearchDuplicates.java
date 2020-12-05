@@ -8,10 +8,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 public class SearchDuplicates implements FileVisitor<Path> {
-    private static Map<FindDuplicates.Data, Integer> list = new HashMap<>();
+    private Set<FileProperty> met = new HashSet<>();
+    private List<FileProperty> duplicates = new ArrayList<>();
 
-    public static Map<FindDuplicates.Data, Integer> getList() {
-        return list;
+    public Set<FileProperty> getMet() {
+        return met;
+    }
+
+    public List<FileProperty> getDuplicates() {
+        return duplicates;
     }
 
     @Override
@@ -21,9 +26,12 @@ public class SearchDuplicates implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        FindDuplicates.Data data = new FindDuplicates.Data(file.getFileName().toString(), attrs.size());
-        Integer value = list.get(data);
-        list.put(data, value == null ? 0 : ++value);
+        FileProperty fileProperty = new FileProperty(file.getFileName().toString(), attrs.size());
+        if (!met.contains(fileProperty)) {
+            met.add(fileProperty);
+        } else {
+            duplicates.add(fileProperty);
+        }
         return FileVisitResult.CONTINUE;
     }
 
