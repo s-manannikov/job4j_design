@@ -14,18 +14,18 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
-                    String message = "";
+                    String message = "What?";
                     //noinspection CheckStyle
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
                         if (str.contains("Exit")) {
                             operate = false;
+                            message = "Good Bye!";
                         }
                         if (str.contains("Hello")) {
                             message = "Hello, dear friend!";
                             break;
                         }
-                        message = "What?";
                     }
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     out.write(message.getBytes());
