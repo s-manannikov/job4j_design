@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -13,6 +14,8 @@ public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+    private List<String> answers = new ArrayList<>();
+    private List<String> chatLog = new ArrayList<>();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -20,24 +23,29 @@ public class ConsoleChat {
     }
 
     public void run() throws IOException {
-        try (BufferedReader in = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8));
-             BufferedWriter out = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8, true))) {
-            List<String> answers = in.lines().collect(Collectors.toList());
-            Scanner input = new Scanner(System.in);
-            String say = input.nextLine();
-            out.write(say + System.lineSeparator());
-            while (!say.equals(OUT)) {
-                if (say.equals(STOP)) {
-                    while (!say.equals(CONTINUE)) {
-                        say = input.nextLine();
-                        out.write(say + System.lineSeparator());
-                    }
+        Scanner input = new Scanner(System.in);
+        Random random = new Random();
+        try (BufferedReader in = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
+            answers = in.lines().collect(Collectors.toList());
+        }
+        String say = input.nextLine();
+        chatLog.add(say);
+        while (!say.equals(OUT)) {
+            if (say.equals(STOP)) {
+                while (!say.equals(CONTINUE)) {
+                    say = input.nextLine();
+                    chatLog.add(say);
                 }
-                String answer = answers.get(new Random().nextInt(answers.size()));
-                out.write(answer + System.lineSeparator());
-                System.out.println(answer);
-                say = input.nextLine();
-                out.write(say + System.lineSeparator());
+            }
+            String answer = answers.get(random.nextInt(answers.size()));
+            chatLog.add(answer);
+            System.out.println(answer);
+            say = input.nextLine();
+            chatLog.add(say);
+        }
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(path, StandardCharsets.UTF_8, true))) {
+            for (String i : chatLog) {
+                out.write(i + System.lineSeparator());
             }
         }
     }
