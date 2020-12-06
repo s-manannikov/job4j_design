@@ -15,7 +15,6 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     String message = "What?";
-                    //noinspection CheckStyle
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
                         if (str.contains("Exit")) {
