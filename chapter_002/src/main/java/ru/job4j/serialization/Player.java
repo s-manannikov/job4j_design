@@ -1,9 +1,9 @@
 package ru.job4j.serialization;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class Player {
     private final String name;
@@ -20,6 +20,18 @@ public class Player {
         this.positions = positions;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public boolean isContract() {
+        return contract;
+    }
+
     @Override
     public String toString() {
         return "Person{"
@@ -32,11 +44,19 @@ public class Player {
     }
 
     public static void main(String[] args) {
+        JSONObject jsonStats = new JSONObject("{\"points\":\"50\"}");
+        List<String> list = new ArrayList<>();
+        list.add("Midfielder");
+        list.add("Forward");
+        JSONArray jsonPositions = new JSONArray(list);
         final Player player = new Player("Name", 10, true, new Stats(50), "Midfielder", "Forward");
-        final Gson gson = new GsonBuilder().create();
-        String json = gson.toJson(player);
-        System.out.println(json);
-        final Player newPlayer = gson.fromJson(json, Player.class);
-        System.out.println(newPlayer);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", player.getName());
+        jsonObject.put("number", player.getNumber());
+        jsonObject.put("contract", player.isContract());
+        jsonObject.put("stats", jsonStats);
+        jsonObject.put("positions", jsonPositions);
+        System.out.println(jsonObject.toString());
+        System.out.println(new JSONObject(player).toString());
     }
 }
