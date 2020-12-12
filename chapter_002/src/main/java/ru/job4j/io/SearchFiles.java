@@ -23,6 +23,9 @@ public class SearchFiles implements FileVisitor<Path> {
         this.predicate = predicate;
     }
 
+    public SearchFiles() {
+    }
+
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
         return CONTINUE;
