@@ -14,7 +14,7 @@ public class ArgsSearchBy {
         if ((!args[0].equals("-d")) || (!args[2].equals("-n")) || (!args[5].equals("-o"))) {
             throw new IllegalArgumentException();
         }
-        if ((!args[4].equals("-m")) && (!args[4].equals("-f"))) {
+        if ((!args[4].equals("-m")) && (!args[4].equals("-f")) && (!args[4].equals("-r"))) {
             throw new IllegalArgumentException();
         }
         return true;
