@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class SearchBy {
 
@@ -19,16 +20,29 @@ public class SearchBy {
         String type = args.searchType();
         String name = args.searchName();
         if (type.equals("-f")) {
-            predicate = (p -> p.getFileName().toString().equals(name));
+            predicate = new RegexSearchCondition(name);
         }
         if (type.equals("-m")) {
-            String s = pattern(name);
-            predicate = p -> p.getFileName().toString().matches(s);
+            predicate = new RegexSearchCondition(pattern(name));
         }
         if (type.equals("-r")) {
             predicate = p -> p.getFileName().toString().matches(name);
         }
         return predicate;
+    }
+
+    private static class RegexSearchCondition implements Predicate<Path> {
+
+        private final Pattern pattern;
+
+        public RegexSearchCondition(String name) {
+            this.pattern = Pattern.compile(name);
+        }
+
+        @Override
+        public boolean test(Path path) {
+            return pattern.matcher(path.getFileName().toString()).matches();
+        }
     }
 
     private String pattern(String pattern) {
