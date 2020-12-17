@@ -19,14 +19,11 @@ public class SearchBy {
         Predicate<Path> predicate = p -> true;
         String type = args.searchType();
         String name = args.searchName();
-        if (type.equals("-f")) {
+        if ((type.equals("-f")) || (type.equals("-r"))) {
             predicate = new RegexSearchCondition(name);
         }
         if (type.equals("-m")) {
             predicate = new RegexSearchCondition(pattern(name));
-        }
-        if (type.equals("-r")) {
-            predicate = p -> p.getFileName().toString().matches(name);
         }
         return predicate;
     }
