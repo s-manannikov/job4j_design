@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class TableEditor implements AutoCloseable {
     private Connection connection;
-    private Properties properties;
+    private final Properties properties;
 
     public TableEditor(Properties properties) throws SQLException, IOException, ClassNotFoundException {
         this.properties = properties;
@@ -43,7 +43,7 @@ public class TableEditor implements AutoCloseable {
 
     public void dropTable(String table) throws SQLException {
         String sql = String.format(
-                "delete from %s;",
+                "drop table if exists %s;",
                 table
         );
         execute(sql);
@@ -61,7 +61,7 @@ public class TableEditor implements AutoCloseable {
 
     public void dropColumn(String tableName, String columnName) throws SQLException {
         String sql = String.format(
-                "alter table %s drop column %s;",
+                "alter table %s drop column if exists %s;",
                 tableName,
                 columnName
         );
