@@ -47,10 +47,18 @@ public class SearchBy {
         for (int i = 0; i < pattern.length(); i++) {
             char c = pattern.charAt(i);
             switch (c) {
-                case '?' -> sb.append(".?");
-                case '*' -> sb.append(".*?");
-                case '.' -> sb.append("\\.");
-                default -> sb.append(c);
+                case '?':
+                    sb.append(".?");
+                    break;
+                case '*':
+                    sb.append(".*?");
+                    break;
+                case '.':
+                    sb.append("\\.");
+                    break;
+                default:
+                    sb.append(c);
+                    break;
             }
         }
         return sb.toString();
