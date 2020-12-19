@@ -29,7 +29,6 @@ public class SearchBy {
     }
 
     private static class RegexSearchCondition implements Predicate<Path> {
-
         private final Pattern pattern;
 
         public RegexSearchCondition(String name) {

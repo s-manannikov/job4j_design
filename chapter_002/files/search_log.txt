@@ -1,0 +1,9 @@
+chapter_002/files/404.txt
+chapter_002/files/bot_answers.txt
+chapter_002/files/console_chat.txt
+chapter_002/files/even.txt
+chapter_002/files/log.txt
+chapter_002/files/result.txt
+chapter_002/files/search_log.txt
+chapter_002/files/server_log_in.txt
+chapter_002/files/server_log_out.txt
