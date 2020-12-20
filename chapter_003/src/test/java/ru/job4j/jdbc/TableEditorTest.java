@@ -1,5 +1,6 @@
 package ru.job4j.jdbc;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import static org.junit.Assert.*;
 public class TableEditorTest {
     Properties properties = new Properties();
 
+    @Ignore
     @Test
     public void whenCreateAddRenameDrop() throws SQLException, IOException, ClassNotFoundException {
         TableEditor te = new TableEditor(properties);

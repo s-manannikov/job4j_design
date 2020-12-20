@@ -1,5 +1,6 @@
 package ru.job4j.jdbc;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class PrepareStatementDemoTest {
     City city2 = new City(2, "City_Name2", 200000);
 
     @Test
+    @Ignore
     public void whenInsert() throws Exception {
         PrepareStatementDemo ps = new PrepareStatementDemo();
         ps.insert(city1);
@@ -26,6 +28,7 @@ public class PrepareStatementDemoTest {
     }
 
     @Test
+    @Ignore
     public void whenUpdate() throws Exception {
         PrepareStatementDemo ps = new PrepareStatementDemo();
         ps.insert(city1);
@@ -39,6 +42,7 @@ public class PrepareStatementDemoTest {
     }
 
     @Test
+    @Ignore
     public void whenDelete() throws Exception {
         PrepareStatementDemo ps = new PrepareStatementDemo();
         ps.insert(city1);
