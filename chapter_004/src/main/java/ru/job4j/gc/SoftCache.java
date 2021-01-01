@@ -11,11 +11,15 @@ import java.util.stream.Collectors;
 
 public class SoftCache {
     Map<String, SoftReference<List<String>>> softCache = new HashMap<>();
-    String folder;
+    private final String folder;
+
+    public SoftCache(final String folder) {
+        this.folder = folder;
+    }
 
     public List<String> read(String file) {
         List<String> rsl = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(folder + file))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(this.folder + file))) {
             rsl = in.lines().collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
