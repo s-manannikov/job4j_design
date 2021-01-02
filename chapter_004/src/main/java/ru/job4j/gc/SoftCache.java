@@ -27,18 +27,16 @@ public class SoftCache {
         return rsl;
     }
 
-    public void add(String file) {
+    public List<String> add(String file) {
         List<String> rsl = read(file);
         if (rsl != null) {
             SoftReference<List<String>> softFile = new SoftReference<>(rsl);
             softCache.put(file, softFile);
         }
+        return rsl;
     }
 
     public List<String> get(String key) {
-        if (!softCache.containsKey(key)) {
-            add(key);
-        }
-        return softCache.get(key).get();
+        return !softCache.containsKey(key) ? add(key) : softCache.get(key).get();
     }
 }
