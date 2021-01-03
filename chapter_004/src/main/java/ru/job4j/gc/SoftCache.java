@@ -37,6 +37,15 @@ public class SoftCache {
     }
 
     public List<String> get(String key) {
-        return !softCache.containsKey(key) ? add(key) : softCache.get(key).get();
+        List<String> rsl;
+        if (softCache.containsKey(key)) {
+            rsl = softCache.get(key).get();
+            if (rsl == null) {
+                rsl = add(key);
+            }
+        } else {
+            rsl = add(key);
+        }
+        return rsl;
     }
 }
