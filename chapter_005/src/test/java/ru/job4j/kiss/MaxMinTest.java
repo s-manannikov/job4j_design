@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.is;
 
 public class MaxMinTest {
     Comparator<Integer> comparator = Comparator.naturalOrder();
@@ -20,11 +19,11 @@ public class MaxMinTest {
 
     @Test
     public void whenMin() {
-        assertThat(mm.min(comparator), is(1));
+        assertEquals(mm.min(comparator), 1);
     }
 
     @Test
     public void whenMax() {
-        assertThat(mm.max(comparator), is(5));
+        assertEquals(mm.max(comparator), 5);
     }
 }
