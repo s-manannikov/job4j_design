@@ -41,7 +41,7 @@ public class CinemaTest {
     }
 
     @Ignore
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void whenNoSession() {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
