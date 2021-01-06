@@ -3,11 +3,9 @@ package ru.job4j.lsp.food;
 public class Discounter {
     private static final int DISCOUNT = 10;
 
-    public void checkDiscount(int percent, Food product) {
-        if (percent > 75 && percent < 100) {
+    public void checkDiscount(Food product) {
             product.setDiscount(DISCOUNT);
             setNewPrice(product);
-        }
     }
 
     private void setNewPrice(Food product) {

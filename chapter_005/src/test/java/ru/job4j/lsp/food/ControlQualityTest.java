@@ -45,11 +45,11 @@ public class ControlQualityTest {
         Storage trash = new Trash();
         LocalDate date = LocalDate.of(2021, 1, 5);
         ControlQuality cq = new ControlQuality(warehouse, shop, trash);
-        cq.chooseStorage(f1, date).add(f1);
-        cq.chooseStorage(f2, date).add(f2);
-        cq.chooseStorage(f3, date).add(f3);
-        cq.chooseStorage(f4, date).add(f4);
-        cq.chooseStorage(f5, date).add(f5);
+        cq.chooseStorage(f1, date);
+        cq.chooseStorage(f2, date);
+        cq.chooseStorage(f3, date);
+        cq.chooseStorage(f4, date);
+        cq.chooseStorage(f5, date);
         assertTrue(Shop.shop.contains(f1));
         assertTrue(Warehouse.warehouse.contains(f2));
         assertTrue(Trash.trash.contains(f3));
