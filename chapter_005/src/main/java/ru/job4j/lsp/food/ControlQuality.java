@@ -21,4 +21,14 @@ public class ControlQuality {
             }
         }
     }
+
+    public void resort(LocalDate now) {
+        List<Food> allProducts = new ArrayList<>();
+        for (Storage store : stores) {
+            if (!(store instanceof Trash)) {
+                allProducts.addAll(store.clearProducts());
+            }
+        }
+        allProducts.forEach(i -> chooseStorage(i, now));
+    }
 }

@@ -24,4 +24,11 @@ public class Shop implements Storage {
             return false;
         }
     }
+
+    @Override
+    public List<Food> clearProducts() {
+        List<Food> rsl = new ArrayList<>(shop);
+        shop.clear();
+        return rsl;
+    }
 }

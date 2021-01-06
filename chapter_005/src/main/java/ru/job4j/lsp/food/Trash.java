@@ -17,4 +17,10 @@ public class Trash implements Storage {
         int percent = new Expire(product).checkExpiration(now);
         return percent >= 100;
     }
+
+    public List<Food> clearProducts() {
+        List<Food> rsl = new ArrayList<>(trash);
+        trash.clear();
+        return rsl;
+    }
 }

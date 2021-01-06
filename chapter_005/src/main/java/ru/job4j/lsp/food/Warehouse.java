@@ -17,4 +17,11 @@ public class Warehouse implements Storage {
         int percent = new Expire(product).checkExpiration(now);
         return percent < 25;
     }
+
+    @Override
+    public List<Food> clearProducts() {
+        List<Food> rsl = new ArrayList<>(warehouse);
+        warehouse.clear();
+        return rsl;
+    }
 }

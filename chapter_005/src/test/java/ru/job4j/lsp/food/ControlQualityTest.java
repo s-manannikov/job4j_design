@@ -56,4 +56,25 @@ public class ControlQualityTest {
         assertTrue(Shop.shop.contains(f4));
         assertTrue(Shop.shop.contains(f5));
     }
+
+    @Test
+    public void whenAddToStoragesThenResort() {
+        Storage warehouse = new Warehouse();
+        Storage shop = new Shop();
+        Storage trash = new Trash();
+        LocalDate date = LocalDate.of(2021, 1, 5);
+        ControlQuality cq = new ControlQuality(warehouse, shop, trash);
+        cq.chooseStorage(f1, date);
+        cq.chooseStorage(f2, date);
+        cq.chooseStorage(f3, date);
+        cq.chooseStorage(f4, date);
+        cq.chooseStorage(f5, date);
+        LocalDate newDate = LocalDate.of(2021, 1, 15);
+        cq.resort(newDate);
+        assertTrue(Trash.trash.contains(f1));
+        assertTrue(Shop.shop.contains(f2));
+        assertTrue(Trash.trash.contains(f3));
+        assertTrue(Trash.trash.contains(f4));
+        assertTrue(Shop.shop.contains(f5));
+    }
 }
