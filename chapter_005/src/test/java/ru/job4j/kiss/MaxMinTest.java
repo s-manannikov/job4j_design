@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class MaxMinTest {
     Comparator<Integer> comparator = Comparator.naturalOrder();
-    MaxMin mm = new MaxMin();
+    MaxMin<Integer> mm = new MaxMin<>();
 
     @Before
     public void setUp() {
@@ -19,11 +19,11 @@ public class MaxMinTest {
 
     @Test
     public void whenMin() {
-        assertEquals(mm.min(comparator), 1);
+        assertEquals(mm.min(comparator), Integer.valueOf(1));
     }
 
     @Test
     public void whenMax() {
-        assertEquals(mm.max(comparator), 5);
+        assertEquals(mm.max(comparator), Integer.valueOf(5));
     }
 }
