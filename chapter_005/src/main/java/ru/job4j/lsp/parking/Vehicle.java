@@ -4,6 +4,8 @@ public interface Vehicle {
 
     String getModel();
 
+    String getId();
+
     String getType();
 
     int getSize();
