@@ -5,14 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class NewParkingTest {
-    Vehicle car1 = new Car("car1", "C001");
-    Vehicle truck1 = new Truck("truck1", "T001", 2);
-    Vehicle car2 = new Car("car2", "C002");
-    Vehicle truck2 = new Truck("truck2", "T002", 2);
 
     @Test
     public void whenParkOnFreePlace() {
         Parking parking = new NewParking(1, 1);
+        Vehicle car1 = new Car("car1", "C001");
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
         assertTrue(parking.park(car1));
         assertTrue(parking.park(truck1));
     }
@@ -20,6 +18,10 @@ public class NewParkingTest {
     @Test
     public void whenParkingHasNoFreePlace() {
         Parking parking = new NewParking(1, 1);
+        Vehicle car1 = new Car("car1", "C001");
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
+        Vehicle car2 = new Car("car2", "C002");
+        Vehicle truck2 = new Truck("truck2", "T002", 2);
         parking.park(car1);
         parking.park(truck1);
         assertFalse(parking.park(car2));
@@ -29,6 +31,8 @@ public class NewParkingTest {
     @Test
     public void whenLeaveParking() {
         Parking parking = new NewParking(1, 1);
+        Vehicle car1 = new Car("car1", "C001");
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
         parking.park(car1);
         parking.park(truck1);
         parking.leave(car1);
@@ -40,6 +44,7 @@ public class NewParkingTest {
     @Test
     public void whenTruckOnPlaceForCars() {
         Parking parking = new NewParking(2, 0);
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
         parking.park(truck1);
         assertEquals(parking.getCarPlaces()[0], truck1);
         assertEquals(parking.getCarPlaces()[1], truck1);
@@ -48,6 +53,9 @@ public class NewParkingTest {
     @Test
     public void whenNoPlaceForTruck() {
         Parking parking = new NewParking(3, 0);
+        Vehicle car1 = new Car("car1", "C001");
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
+        Vehicle car2 = new Car("car2", "C002");
         parking.park(car1);
         parking.park(car2);
         assertFalse(parking.park(truck1));
@@ -67,6 +75,8 @@ public class NewParkingTest {
     @Test
     public void whenFalseThenTrue() {
         Parking parking = new NewParking(2, 0);
+        Vehicle truck1 = new Truck("truck1", "T001", 2);
+        Vehicle truck2 = new Truck("truck2", "T002", 2);
         parking.park(truck1);
         assertFalse(parking.park(truck2));
         parking.leave(truck1);
