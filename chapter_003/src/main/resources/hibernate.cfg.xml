@@ -16,11 +16,9 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
-
-        <mapping class="ru.job4j.hibernate.models.Role"/>
-        <mapping class="ru.job4j.hibernate.models.User"/>
-
         <mapping class="ru.job4j.hibernate.models.Brand"/>
         <mapping class="ru.job4j.hibernate.models.Model"/>
+        <mapping class="ru.job4j.hibernate.models.Author"/>
+        <mapping class="ru.job4j.hibernate.models.Book"/>
     </session-factory>
 </hibernate-configuration>
