@@ -22,5 +22,6 @@
         <mapping class="ru.job4j.hibernate.models.Book"/>
         <mapping class="ru.job4j.hibernate.lazy.Car"/>
         <mapping class="ru.job4j.hibernate.lazy.Label"/>
+        <mapping class="ru.job4j.hibernate.hql.Candidate"/>
     </session-factory>
 </hibernate-configuration>
