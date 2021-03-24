@@ -23,5 +23,7 @@
         <mapping class="ru.job4j.hibernate.lazy.Car"/>
         <mapping class="ru.job4j.hibernate.lazy.Label"/>
         <mapping class="ru.job4j.hibernate.hql.Candidate"/>
+        <mapping class="ru.job4j.hibernate.hql.Job"/>
+        <mapping class="ru.job4j.hibernate.hql.JobBase"/>
     </session-factory>
 </hibernate-configuration>

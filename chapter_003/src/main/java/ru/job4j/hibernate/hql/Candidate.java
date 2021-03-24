@@ -17,6 +17,9 @@ public class Candidate {
 
     private BigDecimal salary;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private JobBase jobBase;
+
     /*
     public Candidate(int id, String name, String experience, BigDecimal salary) {
         this.id = id;
@@ -58,6 +61,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public JobBase getJobBase() {
+        return jobBase;
+    }
+
+    public void setJobBase(JobBase jobBase) {
+        this.jobBase = jobBase;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -70,12 +81,13 @@ public class Candidate {
         return id == candidate.id
                 && Objects.equals(name, candidate.name)
                 && Objects.equals(experience, candidate.experience)
-                && Objects.equals(salary, candidate.salary);
+                && Objects.equals(salary, candidate.salary)
+                && Objects.equals(jobBase, candidate.jobBase);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, experience, salary);
+        return Objects.hash(id, name, experience, salary, jobBase);
     }
 
     @Override
@@ -85,6 +97,7 @@ public class Candidate {
                 + ", name='" + name + '\''
                 + ", experience='" + experience + '\''
                 + ", salary=" + salary
+                + ", jobBase=" + jobBase
                 + '}';
     }
 }
